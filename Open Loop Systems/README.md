@@ -1,8 +1,9 @@
 # Purpose:
-                The purpose of this lab was to use open loop control to control the temperature of a voltage regulator. With 15-20V being the input to the voltage regulator and the output being 5v, the voltage regulator produces heat. To cool the regulator, a fan will be used.  The temperature that the voltage regulator needs to stay between is 30C and 40C. The C code will convert the voltage to a temperature in Celsius and output this temperature over Uart.
+The purpose of this lab was to use open loop control to control the temperature of a voltage regulator. With 15-20V being the input to the voltage regulator and the output being 5v, the voltage regulator produces heat. To cool the regulator, a fan will be used.  The temperature that the voltage regulator needs to stay between is 30C and 40C. The C code will convert the voltage to a temperature in Celsius and output this temperature over Uart.
 
 # Code:
 The code is similar to past labs used ADC and Uart. The main loop that transmits and sends data is shown below.
+
 /********************** Convert and send data**********************************/
         while(1)
         {
@@ -21,12 +22,11 @@ Temperature = (int)((ADC_value * 0.0032)/.01);  // Convert the ADC value to Degr
 
 
 The value is sent over Uart from the code:
-
 UCA0TXBUF = Temperature;  //Transmit the data
 
 
 # Control:
-        Since this lab is an open loop system, the output data will not be used for an input. The input to this system will be a PWM value that will be used to control the fan. The temperature of the voltage regulator will be dependent on the PWM value. For a lower PWM, the voltage regulator will become hotter. For a higher value PWM, the voltage regulator will be cooler. To control the PWM, the following code is used:
+Since this lab is an open loop system, the output data will not be used for an input. The input to this system will be a PWM value that will be used to control the fan. The temperature of the voltage regulator will be dependent on the PWM value. For a lower PWM, the voltage regulator will become hotter. For a higher value PWM, the voltage regulator will be cooler. To control the PWM, the following code is used:
 
 
 TA1CCR0 = 1000; //The value that the timer A1 will count up to.
