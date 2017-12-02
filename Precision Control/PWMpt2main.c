@@ -1,9 +1,17 @@
-Precision Control
-Purpose:
-The purpose of this lab was to 1) Receive a PWM duty cycle over UART and have the MSP430FR55259 output that same duty cycle, 2) Create an 8-bit Digital to Analog converter.
-PWM Part 2:
-The goal of PWM part 2 was to take a PWM value over UART and output that signal on a GPIO pin for the msp430fr5529. To do this, Uart must be configured correctly. To set up UART and the inputs and outputs, the following code was used. 
- WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
+/* Lab 6 Precision Control PWM Part 2
+ * Sam Toanone Alex Revolus
+ * This code takes an input from UART and outputs the value as a PWM.
+ * Pins 3.4 and 3.3 are Rx and Tx. The output PWM is sent on PIN 1.2.
+ * The default PWM value is 50% and after the first value is sent
+ * it becomes the TA0CCR1 value.
+ */
+
+#include <msp430.h>
+
+
+int main(void)
+{
+  WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
 /*******************Enable Inputs***********************/
   P1DIR |= BIT2;
   P1SEL |= BIT2;
@@ -34,9 +42,8 @@ The goal of PWM part 2 was to take a PWM value over UART and output that signal 
   __no_operation();   // For debugger
 
 
-The output pin on the GPIO is Pin 1.2. The CCR0 value is 1000 and CCR1 initial value is 500.  The UART will transmit at a baud rate of 9600.  The divider for the clock must be 104 to achieve the baud Rate of 9600 with using smclk at 1MHZ.
+}
 
-The next code will be the UART interrupt. This code is shown below.
 /********************Uart Interrupt*********************/
 //Only case needed is case 2. If the receiver interrupt flag is on transmit back the data sent(to make sure UART is working)
 //Uart can only send up to 255. Only send data between 0-100. Multiply Received data by 10 to have CCR1 values between 0-1000.
@@ -56,10 +63,3 @@ __interrupt void USCI_A0_ISR(void)
   default: break;
   }
 }
-
-In this code, when the value sent over UART to the processor is between 0-100. This value will be multiplied by 10 to give the value to TA0CCR1. For example, if the value sent over is 100. The value of TA0CCR1 will be 100. This will be 100% duty cycle.
-
-R2R DAC
-The goal of this lab was to create an 8-bit analog to digital converter. The architecture used was an R2R ladder. The output of the R2R ladder was shown on the Oscilloscope. The F5529 was picked because of the amount of free GPIO pins available. With pins 6.0-6.6 available the for loop was easy to implement.
-
-
