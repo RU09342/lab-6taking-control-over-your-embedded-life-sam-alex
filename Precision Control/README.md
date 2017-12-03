@@ -63,3 +63,8 @@ R2R DAC
 The goal of this lab was to create an 8-bit analog to digital converter. The architecture used was an R2R ladder. The output of the R2R ladder was shown on the Oscilloscope. The F5529 was picked because of the amount of free GPIO pins available. With pins 6.0-6.6 available the for loop was easy to implement.
 
 
+d by 10 to give the value to TA0CCR1. For example, if the value sent over is 100. The value of TA0CCR1 will be 100. This will be 100% duty cycle.
+
+R2R DAC
+The goal of this lab was to create an 8-bit analog to digital converter. The architecture used was an R2R ladder. The output of the R2R ladder was shown on the Oscilloscope. The F5529 was picked because of the amount of free GPIO pins available. With pins 6.0-6.6 available the for loop was easy to implement.
+
