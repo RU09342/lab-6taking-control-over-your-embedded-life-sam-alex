@@ -29,6 +29,7 @@ UCA0TXBUF = Temperature;  //Transmit the data
 Since this lab is an open loop system, the output data will not be used for an input. The input to this system will be a PWM value that will be used to control the fan. The temperature of the voltage regulator will be dependent on the PWM value. For a lower PWM, the voltage regulator will become hotter. For a higher value PWM, the voltage regulator will be cooler. To control the PWM, the following code is used:
 
 
+
 TA1CCR0 = 1000; //The value that the timer A1 will count up to.
            TA1CCTL1 = OUTMOD_7;
            TA1CCR1 = 0; //Start at 0% duty cycle. Value will change depending on the PWM needed for the fan
