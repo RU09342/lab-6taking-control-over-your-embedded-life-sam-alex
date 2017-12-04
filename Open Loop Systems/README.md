@@ -7,17 +7,26 @@ The code is similar to past labs used ADC and Uart. The main loop that transmits
 
    while(1)
       {
-    __delay_cycles(1000000);          // Wait 1 second before sending data over uart
+  
+   __delay_cycles(1000000);          // Wait 1 second before sending data over uart
+    
     ADC10CTL0 |= ENC + ADC10SC;       // start sampling and data conversion
+    
     __bis_SR_register(CPUOFF + GIE);  //Low power mode with interrupt enabled
+    
     ADC_value = ADC10MEM;    // Store ADC value into the variable ADC_value
+    
     Temperature = (int)((ADC_value * 0.0032)/.01);  // Convert the ADC value to Degrees Celsius
     UCA0TXBUF = Temperature;  //Transmit the data
+    
             
         }
 In this while loop,  the temperature is sent over Uart every 1 second from the code:
+
 __delay_cycles(1000000);
+
 The ADC value is converted into a temperature from the code:
+
 Temperature = (int)((ADC_value * 0.0032)/.01);  // Convert the ADC value to Degrees Celsius
 
 
